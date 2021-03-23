@@ -3,16 +3,10 @@ def input_students
   puts "To finish, just hit return twice"
   students = []
   name = gets.chomp
-  puts "What cohort are you part of?"
-  cohort = ""
-  cohort = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: cohort}
+    students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
-    puts "Name?"
     name = gets.chomp
-    puts "Cohort?"
-    cohort = gets.chomp
   end
   students
 end
@@ -22,8 +16,12 @@ def print_header
   puts "-------------"
 end
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)" unless student[:cohort] == ""
+  puts "Which cohort would you like to see?"
+  selection = gets.chomp
+  group = students.map do |student|
+    if student[:cohort] == selection.to_sym
+      puts "#{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 def print_footer(names)
